@@ -183,7 +183,7 @@ variable "VNetLogCategories" {
 
                                           "Category1" = {
                                             LogCatName                = "VMProtectionAlerts"
-                                            IsLogCatEnabledForLAW     = false
+                                            IsLogCatEnabledForLAW     = true
                                             IsLogCatEnabledForSTA     = true
                                             IsRetentionEnabled        = true
                                             RetentionDaysValue        = 365
@@ -206,7 +206,7 @@ variable "VNetMetricCategories" {
 
                                           "Metric1" = {
                                             MetricCatName             = "AllMetrics"
-                                            IsMetricCatEnabledForLAW  = true
+                                            IsMetricCatEnabledForLAW  = false
                                             IsMetricCatEnabledForSTA  = true
                                             IsRetentionEnabled        = true
                                             RetentionDaysValue        = 365
