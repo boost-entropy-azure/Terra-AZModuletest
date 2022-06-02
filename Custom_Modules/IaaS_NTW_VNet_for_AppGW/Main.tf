@@ -131,7 +131,7 @@ resource "azurerm_monitor_diagnostic_setting" "AzureBastionNSGDiag" {
 
 resource "azurerm_network_watcher_flow_log" "AzureBastionNSGFlowLog" {
   count                                 = var.IsBastionEnabled ? 1 : 0
-  name                                  = "flowlog-nsg-azurebastionsubnet"
+  name                                  = "flowlog-nsg-azurebastionsubnet${lower(var.VNetSuffix)}"
   location                              = var.TargetLocation
   network_watcher_name                  = var.NetworkWatcherName
   resource_group_name                   = var.NetworkWatcherRGName
@@ -750,7 +750,7 @@ resource "azurerm_network_security_rule" "Default_BastionSubnet_DenyInternetOut"
 
 resource "azurerm_public_ip" "BastionPublicIP" {
   count                                 = var.IsBastionEnabled ? 1 : 0
-  name                                  = "bst-pubip"
+  name                                  = "bst-pubip${lower(var.VNetSuffix)}"
   location                              = var.TargetLocation
   resource_group_name                   = var.TargetRG
   allocation_method                     = "Static"
