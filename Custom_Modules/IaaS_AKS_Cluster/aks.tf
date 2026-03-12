@@ -135,6 +135,8 @@ resource "azurerm_kubernetes_cluster" "AKS" {
 
   }
 
+
+
   dns_prefix                          = local.IsBYOPrivateDNSZone ? null : local.DNSPrefix
   dns_prefix_private_cluster          = var.IsAKSPrivate && local.IsBYOPrivateDNSZone ? local.DNSPrefix : null
   node_resource_group                 = var.UseAKSNodeRGDefaultName ? local.DefaultNodeRGName : local.CustomNodeRGName
@@ -154,9 +156,9 @@ resource "azurerm_kubernetes_cluster" "AKS" {
 
     content {
 
-      authorized_ip_ranges = var.ApiAllowedIps
-      #subnet_id                = var.ApiSubnetId
-      #vnet_integration_enabled = var.EnableApiVnetIntegration      
+      authorized_ip_ranges                = var.ApiAllowedIps
+      subnet_id                           = var.ApiSubnetId
+      virtual_network_integration_enabled = var.EnableApiVnetIntegration
     }
 
   }

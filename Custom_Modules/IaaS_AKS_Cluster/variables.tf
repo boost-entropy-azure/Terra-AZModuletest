@@ -1058,7 +1058,7 @@ variable "AksAlerts" {
       MetricAggregation = "Total"
       MetricOperator    = "GreaterThan"
       MetricThreshold   = 0
-    },/*
+    }, /*
     KubePodStatusPhase = {
       AlertName         = "KubePodStatusPhase"
       AlertDescription  = "KubePodStatusPhase"
@@ -1075,7 +1075,7 @@ variable "AksAlerts" {
       MetricOperator    = "LessThan"
       MetricThreshold   = 1
     },
-    
+
     NodeCpuUsagePercentage = {
       AlertName         = "NodeCpuUsagePercentage"
       AlertDescription  = "NodeCpuUsagePercentage"
@@ -1091,8 +1091,8 @@ variable "AksAlerts" {
       MetricAggregation = "Average"
       MetricOperator    = "GreaterThan"
       MetricThreshold   = 80
-      MetricSeverity     = 2
-      MetricFrequency    = "PT1M"
+      MetricSeverity    = 2
+      MetricFrequency   = "PT1M"
     },
     NodeCpuUsagePercentage = {
       AlertName         = "NodeMemoryRssPercentage"
@@ -1101,7 +1101,7 @@ variable "AksAlerts" {
       MetricAggregation = "Average"
       MetricOperator    = "GreaterThan"
       MetricThreshold   = 90
-      MetricFrequency    = "PT1M"
+      MetricFrequency   = "PT1M"
     },
     NodeCpuUsagePercentage = {
       AlertName         = "NodeMemoryWorkingSetPercentage"
@@ -1123,7 +1123,7 @@ variable "AlertingEnabled" {
 variable "AksActivityLogAlert" {
   type = map(object({
     OperationName = string
-    Category      = optional(string,"Administrative")
+    Category      = optional(string, "Administrative")
   }))
 
   description = "A map of object to define an activity log alert on the AKS cluster. The key of the map is the name of the alert, and the value is an object with the operation name and category to filter on"
@@ -1145,7 +1145,7 @@ variable "AksActivityLogAlert" {
       Category      = "Administrative"
     }
   }
-  
+
 }
 
 variable "ActivityLogAlertEnabled" {
