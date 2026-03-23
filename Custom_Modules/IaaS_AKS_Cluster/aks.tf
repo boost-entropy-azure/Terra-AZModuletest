@@ -352,10 +352,10 @@ resource "azapi_update_resource" "kube_proxy_disabled" {
           }
           security = {
             advancedNetworkPolicies = var.AdvancedNetworkingConfig.AdvancedNetworkPolicies
-            enabled = var.AdvancedNetworkingConfig.SecurityEnabled
+            enabled                 = var.AdvancedNetworkingConfig.SecurityEnabled
             transitEncryption = {
-                type = var.AdvancedNetworkingConfig.TransitEncryption
-              }
+              type = var.AdvancedNetworkingConfig.TransitEncryption
+            }
           }
         }
         kubeProxyConfig = {
@@ -368,27 +368,3 @@ resource "azapi_update_resource" "kube_proxy_disabled" {
 
 }
 
-variable "DisableKubeProxy" {
-  type = bool
-  description = "A bool to Enable/Disable kubeproxy through the azapi provider"
-  default = null
-}
-
-variable "AdvancedNetworkingConfig" {
-  type = object({
-    Enabled = optional(bool, true)
-    ObservabilityEnabled = optional(bool, false)
-    AccelerationMode = optional(string, "None")
-    SecurityEnabled = optional(bool, true)
-    AdvancedNetworkPolicies = optional(string, "L7")
-    TransitEncryption = optional(string, "WireGuard")
-  })
-
-  description = "An object to define the configuration of advanced networking service"
-
-  default = {
-    Enabled = true
-    TransitEncryption = "WireGuard"
-    
-  }
-}
