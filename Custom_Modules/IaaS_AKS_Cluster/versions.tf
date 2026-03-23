@@ -5,5 +5,10 @@ terraform {
     azurerm = {
       version = ">= 4.7.0"
     }
+
+    azapi = {
+      source  = "azure/azapi"
+      version = ">=1.1"
+    }
   }
 }
