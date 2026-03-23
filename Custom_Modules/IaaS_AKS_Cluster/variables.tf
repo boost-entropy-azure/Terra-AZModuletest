@@ -1217,3 +1217,31 @@ variable "ApiAllowedIps" {
   default     = []
 
 }
+
+
+######################################################
+# AzApi variables
+
+variable "DisableKubeProxy" {
+  type        = bool
+  description = "A bool to Enable/Disable kubeproxy through the azapi provider"
+  default     = null
+}
+
+variable "AdvancedNetworkingConfig" {
+  type = object({
+    Enabled                 = optional(bool, false)
+    ObservabilityEnabled    = optional(bool, false)
+    AccelerationMode        = optional(string, "None")
+    SecurityEnabled         = optional(bool, null)
+    AdvancedNetworkPolicies = optional(string, null)
+    TransitEncryption       = optional(string, null)
+  })
+
+  description = "An object to define the configuration of advanced networking service"
+
+  default = {
+    Enabled = false
+
+  }
+}
