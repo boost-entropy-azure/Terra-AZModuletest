@@ -330,3 +330,65 @@ resource "azurerm_kubernetes_cluster" "AKS" {
   tags = local.Tags
 
 }
+
+
+################################################################
+#Updating  the AKS Cluster with through az api provider
+
+resource "azapi_update_resource" "kube_proxy_disabled" {
+
+  resource_id = azurerm_kubernetes_cluster.AKS.id
+  type        = "Microsoft.ContainerService/managedClusters@2025-10-02-preview"
+  body = {
+    properties = {
+      networkProfile = {
+        advancedNetworking = {
+          enabled = var.AdvancedNetworkingConfig.Enabled
+          observability = {
+            enabled = var.AdvancedNetworkingConfig.ObservabilityEnabled
+          }
+          performance = {
+            accelerationMode = var.AdvancedNetworkingConfig.AccelerationMode
+          }
+          security = {
+            advancedNetworkPolicies = var.AdvancedNetworkingConfig.AdvancedNetworkPolicies
+            enabled = var.AdvancedNetworkingConfig.SecurityEnabled
+            transitEncryption = {
+                type = var.AdvancedNetworkingConfig.TransitEncryption
+              }
+          }
+        }
+        kubeProxyConfig = {
+          enabled = var.DisableKubeProxy
+        }
+      }
+    }
+  }
+
+
+}
+
+variable "DisableKubeProxy" {
+  type = bool
+  description = "A bool to Enable/Disable kubeproxy through the azapi provider"
+  default = null
+}
+
+variable "AdvancedNetworkingConfig" {
+  type = object({
+    Enabled = optional(bool, true)
+    ObservabilityEnabled = optional(bool, false)
+    AccelerationMode = optional(string, "None")
+    SecurityEnabled = optional(bool, true)
+    AdvancedNetworkPolicies = optional(string, "L7")
+    TransitEncryption = optional(string, "WireGuard")
+  })
+
+  description = "An object to define the configuration of advanced networking service"
+
+  default = {
+    Enabled = true
+    TransitEncryption = "WireGuard"
+    
+  }
+}
